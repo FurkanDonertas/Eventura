@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AndroidBitirmeProje</string>
+    <string-array name="moods_array">
+        <item>Enerjik</item>
+        <item>Rahat</item>
+        <item>Macera</item>
+    </string-array>
+
+
+    <string name="get_location">Konumu Al</string>
+
+
+</resources>
