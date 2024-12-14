@@ -2,9 +2,14 @@
     <string name="app_name">AndroidBitirmeProje</string>
     <string-array name="moods_array">
         <item>Enerjik</item>
-        <item>Rahat</item>
-        <item>Macera</item>
+        <item>Üzgün</item>
+        <item>Macera İsteyen</item>
     </string-array>
+
+
+    <string name="group_size_prompt">Grup boyutunu seçin...</string>
+    <string name="mood_prompt">Ruh halinizi seçin...</string>
+    <string name="family_status_prompt">Aile durumu seçin...</string>
 
 
     <string name="get_location">Konumu Al</string>

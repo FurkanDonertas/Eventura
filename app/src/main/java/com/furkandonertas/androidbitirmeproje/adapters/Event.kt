@@ -1,13 +1,10 @@
 package com.furkandonertas.androidbitirmeproje.adapters
 
 data class Event(
-    val title: String,
-    val details: String,
-    val date: String,
-    val location: Location
-)
-
-data class Location(
-    val latitude: Double,
-    val longitude: Double
+    val name: String?, // Etkinlik adı
+    val url: String?, // Etkinlik URL'si
+    val startDate: String?, // Başlangıç tarihi
+    val locationName: String?, // Mekan adı
+    val locationCity: String?, // Şehir adı
+    val imageUrl: String? // Resim URL'si
 )
