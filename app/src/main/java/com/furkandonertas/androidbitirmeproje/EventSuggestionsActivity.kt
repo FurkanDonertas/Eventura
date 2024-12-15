@@ -98,17 +98,21 @@ class EventSuggestionsActivity : AppCompatActivity() {
         val embedded = response.getAsJsonObject("_embedded")?.getAsJsonArray("events")
         embedded?.forEach { eventElement ->
             val eventObj = eventElement.asJsonObject
-            val name = eventObj.get("name")?.asString
+            val name = eventObj.get("name").asString
             val url = eventObj.get("url")?.asString
-            val startDate = eventObj.getAsJsonObject("dates")?.getAsJsonObject("start")?.get("localDate")?.asString
+            val startDateObj = eventObj.getAsJsonObject("dates")?.getAsJsonObject("start")
+            val startDate = startDateObj?.get("localDate")?.asString
+            val startTime = startDateObj?.get("localTime")?.asString // Saat bilgisi burada alınıyor
             val venue = eventObj.getAsJsonObject("_embedded")?.getAsJsonArray("venues")?.get(0)?.asJsonObject
             val locationName = venue?.get("name")?.asString
             val locationCity = venue?.getAsJsonObject("city")?.get("name")?.asString
             val imageUrl = eventObj.getAsJsonArray("images")?.get(0)?.asJsonObject?.get("url")?.asString
-            events.add(Event(name, url, startDate, locationName, locationCity, imageUrl))
+
+            events.add(Event(name, url, startDate, startTime, locationName, locationCity, imageUrl))
         }
         return events
     }
+
     private fun determineEventClassification(mood: String, groupSize: String, familyStatus: String): String {
         return when {
             mood == "Üzgün" && groupSize == "1-2" && familyStatus == "Ailesiz" -> "comedy"

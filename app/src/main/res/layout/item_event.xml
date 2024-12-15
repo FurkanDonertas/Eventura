@@ -17,17 +17,15 @@
         android:id="@+id/eventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Etkinlik Adı"
         android:textSize="16sp"
         android:textStyle="bold"
         android:paddingTop="8dp" />
 
-    <!-- Etkinlik Tarihi -->
+    <!-- Etkinlik Tarihi ve Saati -->
     <TextView
         android:id="@+id/eventDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Etkinlik Tarihi"
         android:textSize="14sp"
         android:paddingTop="4dp" />
 
@@ -36,7 +34,28 @@
         android:id="@+id/eventLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Etkinlik Lokasyonu"
         android:textSize="14sp"
         android:paddingTop="4dp" />
+
+    <!-- Favorilere Ekle ve Satın Al Butonları -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/favoriteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Favorilere Ekle" />
+
+        <Button
+            android:id="@+id/buyButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Satın Al" />
+    </LinearLayout>
 </LinearLayout>

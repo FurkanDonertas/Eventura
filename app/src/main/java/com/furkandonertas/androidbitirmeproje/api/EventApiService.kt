@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface EventApiService {
-    @GET("events")
+    @GET("events.json")
     fun getEvents(
         @Query("apikey") apiKey: String,
         @Query("latlong") latlong: String,
