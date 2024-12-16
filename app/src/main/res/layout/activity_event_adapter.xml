@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventAdapter">
+    tools:context="com.furkandonertas.androidbitirmeproje.adapters.EventAdapter">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

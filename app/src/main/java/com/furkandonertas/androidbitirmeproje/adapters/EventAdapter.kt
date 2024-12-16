@@ -1,6 +1,5 @@
 package com.furkandonertas.androidbitirmeproje.adapters
 
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -14,14 +13,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.furkandonertas.androidbitirmeproje.R
-import com.furkandonertas.androidbitirmeproje.db.AppDatabase
-import com.furkandonertas.androidbitirmeproje.db.FavoriteEvent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class EventAdapter(private val events: List<Event>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class EventAdapter(
+    private val events: List<Event>,
+    private val isFavoritesFragment: Boolean, // Favoriler ekranında mı olduğumuzu belirlemek için
+    private val onFavoriteAction: (Event, Boolean) -> Unit // Favori ekleme/çıkarma için callback
+) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.eventName)
@@ -51,38 +48,26 @@ class EventAdapter(private val events: List<Event>) : RecyclerView.Adapter<Event
             .placeholder(R.drawable.ic_launcher_background)
             .into(holder.image)
 
-        // Favorilere ekleme işlemi
+        // Favorilere Ekle veya Favorilerden Çıkar butonu
+        holder.favoriteButton.text = if (isFavoritesFragment) "Favorilerden Çıkar" else "Favorilere Ekle"
         holder.favoriteButton.setOnClickListener {
             val context = holder.itemView.context
-            saveToFavorites(event, context)
+            onFavoriteAction(event, isFavoritesFragment) // Favori işlemi için callback çağır
+
+            // Favorilerden çıkarma durumunda toast mesajı göster
+            if (isFavoritesFragment) {
+                Toast.makeText(context, "${event.name} favorilerden çıkarıldı.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "${event.name} favorilere eklendi.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Satın alma işlemi
         holder.buyButton.setOnClickListener {
+            val context = holder.itemView.context
+            Toast.makeText(context, "Yönlendiriliyorsunuz...", Toast.LENGTH_SHORT).show() // Toast mesajı
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(event.url))
-            holder.itemView.context.startActivity(intent)
-        }
-    }
-
-    private fun saveToFavorites(event: Event, context: Context) {
-        val favoriteEvent = FavoriteEvent(
-            name = event.name,
-            date = event.startDate,
-            time = event.startTime,
-            location = "${event.locationName}, ${event.locationCity}",
-            imageUrl = event.imageUrl,
-            url = event.url
-        )
-
-        val database = AppDatabase.getDatabase(context)
-        val dao = database.favoriteEventDao()
-
-        // Coroutine ile veritabanına kaydet
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insert(favoriteEvent)
-            withContext(Dispatchers.Main) {
-                Toast.makeText(context, "${event.name} favorilere eklendi!", Toast.LENGTH_SHORT).show()
-            }
+            context.startActivity(intent)
         }
     }
 

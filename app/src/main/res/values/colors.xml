@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary Renkler -->
+    <color name="colorPrimary">#89A8B2</color> <!-- Orta Gri-Mavi -->
+    <color name="colorPrimaryVariant">#B3C8CF</color> <!-- Daha Açık Gri-Mavi -->
+    <color name="colorOnPrimary">#FFFFFF</color> <!-- Beyaz -->
+
+    <!-- Secondary Renkler -->
+    <color name="colorSecondary">#E5E1DA</color> <!-- Açık Gri -->
+    <color name="colorSecondaryVariant">#F1F0E8</color> <!-- En Açık Gri -->
+    <color name="colorOnSecondary">#000000</color> <!-- Siyah -->
+
+    <!-- Arka Plan Renkleri -->
+    <color name="colorBackground">#E5E1DA</color> <!-- Açık Gri -->
+    <color name="colorOnBackground">#000000</color> <!-- Siyah -->
+
+    <!-- Yüzey Renkleri -->
+    <color name="colorSurface">#F1F0E8</color> <!-- En Açık Gri -->
+    <color name="colorOnSurface">#000000</color> <!-- Siyah -->
+
+    <!-- Hata Renkleri -->
+    <color name="colorError">#B00020</color> <!-- Kırmızı -->
+    <color name="colorOnError">#FFFFFF</color> <!-- Beyaz -->
 </resources>

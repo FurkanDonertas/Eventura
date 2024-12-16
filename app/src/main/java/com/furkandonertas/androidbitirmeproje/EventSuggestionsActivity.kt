@@ -12,11 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.furkandonertas.androidbitirmeproje.adapters.Event
 import com.furkandonertas.androidbitirmeproje.adapters.EventAdapter
 import com.furkandonertas.androidbitirmeproje.api.RetrofitInstance
+import com.furkandonertas.androidbitirmeproje.db.AppDatabase
+import com.furkandonertas.androidbitirmeproje.db.FavoriteEvent
 import com.google.gson.JsonObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class EventSuggestionsActivity : AppCompatActivity() {
 
@@ -75,7 +80,15 @@ class EventSuggestionsActivity : AppCompatActivity() {
                         emptyMessageTextView.text = "Bu kriterlere uygun etkinlik bulunamadı."
                         emptyMessageTextView.visibility = View.VISIBLE
                     } else {
-                        recyclerView.adapter = EventAdapter(events)
+                        recyclerView.adapter = EventAdapter(
+                            events = events,
+                            isFavoritesFragment = false, // Öneriler ekranında olduğumuz için false
+                            onFavoriteAction = { event, isFavoritesFragment ->
+                                if (!isFavoritesFragment) {
+                                    saveToFavorites(event) // Favorilere ekle
+                                }
+                            }
+                        )
                         emptyMessageTextView.visibility = View.GONE
                     }
                 } else {
@@ -88,9 +101,28 @@ class EventSuggestionsActivity : AppCompatActivity() {
                 Toast.makeText(this@EventSuggestionsActivity, "Bağlantı hatası: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
 
+    private fun saveToFavorites(event: Event) {
+        val favoriteEvent = FavoriteEvent(
+            name = event.name,
+            date = event.startDate,
+            time = event.startTime,
+            location = "${event.locationName}, ${event.locationCity}",
+            imageUrl = event.imageUrl,
+            url = event.url
+        )
 
+        val database = AppDatabase.getDatabase(this)
+        val dao = database.favoriteEventDao()
 
+        // Coroutine ile veritabanına kaydet
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.insert(favoriteEvent)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@EventSuggestionsActivity, "${event.name} favorilere eklendi!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun parseEventsFromJson(response: JsonObject): List<Event> {
@@ -102,7 +134,7 @@ class EventSuggestionsActivity : AppCompatActivity() {
             val url = eventObj.get("url")?.asString
             val startDateObj = eventObj.getAsJsonObject("dates")?.getAsJsonObject("start")
             val startDate = startDateObj?.get("localDate")?.asString
-            val startTime = startDateObj?.get("localTime")?.asString // Saat bilgisi burada alınıyor
+            val startTime = startDateObj?.get("localTime")?.asString
             val venue = eventObj.getAsJsonObject("_embedded")?.getAsJsonArray("venues")?.get(0)?.asJsonObject
             val locationName = venue?.get("name")?.asString
             val locationCity = venue?.getAsJsonObject("city")?.get("name")?.asString
@@ -133,8 +165,3 @@ class EventSuggestionsActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-
-

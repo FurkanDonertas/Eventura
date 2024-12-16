@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,21 +56,39 @@ class FavoritesFragment : Fragment() {
                 }
 
                 withContext(Dispatchers.Main) {
-                    recyclerView.adapter = EventAdapter(events)
+                    recyclerView.adapter = EventAdapter(
+                        events = events,
+                        isFavoritesFragment = true, // FavoritesFragment içindeyiz
+                        onFavoriteAction = { event, isFavoritesFragment ->
+                            if (isFavoritesFragment) {
+                                removeFromFavorites(event) // Favorilerden çıkarma işlemi
+                            }
+                        }
+                    )
                 }
             }
         }
     }
 
-    private fun deleteFromFavorites(favorite: FavoriteEvent) {
+
+    private fun removeFromFavorites(event: Event) {
         val database = AppDatabase.getDatabase(requireContext())
         val dao = database.favoriteEventDao()
 
         CoroutineScope(Dispatchers.IO).launch {
-            dao.delete(favorite)
+            // Veritabanından silme işlemi
+            dao.getAllFavorites().collect { favorites ->
+                val favoriteToDelete = favorites.find { it.name == event.name }
+                if (favoriteToDelete != null) {
+                    dao.delete(favoriteToDelete)
+                }
+            }
+
             withContext(Dispatchers.Main) {
-                loadFavorites() // Favoriler yeniden yüklensin
+                Toast.makeText(requireContext(), "${event.name} favorilerden çıkarıldı.", Toast.LENGTH_SHORT).show()
+                loadFavorites() // RecyclerView'ı güncelle
             }
         }
     }
 }
+

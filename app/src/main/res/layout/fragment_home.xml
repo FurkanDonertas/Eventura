@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Eventura"
+            android:text="EVENTURA"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -31,11 +31,12 @@
             <TextView
                 android:id="@+id/locationInput"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="29dp"
                 android:layout_weight="1"
                 android:hint="Konum için yandaki resme tıklayın."
-                android:textSize="18sp"
-                android:padding="8dp" />
+                android:padding="3dp"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/getLocationImage"
@@ -43,7 +44,7 @@
                 android:layout_height="48dp"
                 android:contentDescription="@string/get_location"
                 android:src="@drawable/konum"
-                android:layout_marginStart="8dp"
+
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
 
@@ -51,7 +52,7 @@
         <Spinner
             android:id="@+id/groupSizeSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:spinnerMode="dropdown"
             android:prompt="@string/group_size_prompt" />
@@ -60,7 +61,7 @@
         <Spinner
             android:id="@+id/moodSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:spinnerMode="dropdown"
             android:prompt="@string/mood_prompt" />
@@ -69,34 +70,40 @@
         <Spinner
             android:id="@+id/familyStatusSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:spinnerMode="dropdown"
-            android:prompt="@string/family_status_prompt" />
+            android:prompt="@string/family_status_prompt"
+            android:spinnerMode="dropdown" />
 
         <!-- Tarih Aralığı Seç Butonu -->
-        <Button
-            android:id="@+id/selectDateRangeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tarih Aralığı Seç"
-            android:layout_marginTop="16dp" />
 
         <!-- Seçilen Tarih Aralığı -->
         <TextView
             android:id="@+id/selectedDateRangeTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Seçilen Tarih Aralığı: Henüz seçilmedi"
+            android:layout_height="39dp"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="Seçilen Tarih Aralığı: Henüz seçilmedi"
+            android:textAlignment="center" />
 
         <!-- Önerileri Gör Butonu -->
+
+
+        <Button
+            android:id="@+id/selectDateRangeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+
+            android:text="Tarih Aralığı Seç" />
+
         <Button
             android:id="@+id/getSuggestionsButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Önerileri Gör"
-            android:layout_marginTop="16dp" />
+            android:layout_height="60dp"
+            android:layout_marginTop="90dp"
+            android:text="Önerileri Gör" />
     </LinearLayout>
 </ScrollView>
