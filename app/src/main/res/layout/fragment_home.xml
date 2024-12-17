@@ -1,5 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -13,20 +12,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="EVENTURA"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:padding="8dp" />
+            android:textStyle="bold|italic" />
 
         <!-- Konum Görseli ve Giriş Alanı -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
-            android:layout_marginTop="16dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/locationInput"
@@ -42,10 +41,10 @@
                 android:id="@+id/getLocationImage"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/get_location"
-                android:src="@drawable/konum"
 
-                android:layout_gravity="center_vertical" />
+                android:src="@drawable/konum" />
         </LinearLayout>
 
         <!-- Grup Boyutu Spinner -->
@@ -54,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:spinnerMode="dropdown"
-            android:prompt="@string/group_size_prompt" />
+            android:prompt="@string/group_size_prompt"
+            android:spinnerMode="dropdown" />
 
         <!-- Ruh Hali Spinner -->
         <Spinner
@@ -63,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:spinnerMode="dropdown"
-            android:prompt="@string/mood_prompt" />
+            android:prompt="@string/mood_prompt"
+            android:spinnerMode="dropdown" />
 
         <!-- Aile Durumu Spinner -->
         <Spinner

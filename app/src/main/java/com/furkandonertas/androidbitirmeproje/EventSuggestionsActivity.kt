@@ -147,21 +147,32 @@ class EventSuggestionsActivity : AppCompatActivity() {
 
     private fun determineEventClassification(mood: String, groupSize: String, familyStatus: String): String {
         return when {
+            // Üzgün Mood
             mood == "Üzgün" && groupSize == "1-2" && familyStatus == "Ailesiz" -> "comedy"
-            mood == "Enerjik" && groupSize == "3-10" && familyStatus == "Aileyle" -> "music"
-            mood == "Macera İsteyen" && groupSize == "10+" && familyStatus == "Ailesiz" -> "sports"
-            mood == "Enerjik" && groupSize == "1-2" && familyStatus == "Aileyle" -> "festival"
-            mood == "Üzgün" && groupSize == "10+" && familyStatus == "Aileyle" -> "theater"
-            mood == "Macera İsteyen" && groupSize == "1-2" && familyStatus == "Ailesiz" -> "outdoors"
+            mood == "Üzgün" && groupSize == "1-2" && familyStatus == "Aileyle" -> "family"
             mood == "Üzgün" && groupSize == "3-10" && familyStatus == "Ailesiz" -> "drama"
-            mood == "Enerjik" && groupSize == "10+" && familyStatus == "Ailesiz" -> "concert"
-            mood == "Macera İsteyen" && groupSize == "3-10" && familyStatus == "Aileyle" -> "adventure"
-            mood == "Üzgün" && groupSize == "1-2" && familyStatus == "Aileyle" -> "museum"
-            mood == "Macera İsteyen" && groupSize == "10+" && familyStatus == "Aileyle" -> "travel"
+            mood == "Üzgün" && groupSize == "3-10" && familyStatus == "Aileyle" -> "arts-theatre"
+            mood == "Üzgün" && groupSize == "10+" && familyStatus == "Ailesiz" -> "arts-theatre"
+            mood == "Üzgün" && groupSize == "10+" && familyStatus == "Aileyle" -> "festival"
+
+            // Enerjik Mood
+            mood == "Enerjik" && groupSize == "1-2" && familyStatus == "Ailesiz" -> "concert"
+            mood == "Enerjik" && groupSize == "1-2" && familyStatus == "Aileyle" -> "festival"
+            mood == "Enerjik" && groupSize == "3-10" && familyStatus == "Ailesiz" -> "music"
+            mood == "Enerjik" && groupSize == "3-10" && familyStatus == "Aileyle" -> "sports"
+            mood == "Enerjik" && groupSize == "10+" && familyStatus == "Ailesiz" -> "sports"
             mood == "Enerjik" && groupSize == "10+" && familyStatus == "Aileyle" -> "parade"
-            mood == "Üzgün" && groupSize == "3-10" && familyStatus == "Aileyle" -> "opera"
+
+            // Macera İsteyen Mood
+            mood == "Macera İsteyen" && groupSize == "1-2" && familyStatus == "Ailesiz" -> "outdoors"
             mood == "Macera İsteyen" && groupSize == "1-2" && familyStatus == "Aileyle" -> "hiking"
+            mood == "Macera İsteyen" && groupSize == "3-10" && familyStatus == "Ailesiz" -> "film"
+            mood == "Macera İsteyen" && groupSize == "3-10" && familyStatus == "Aileyle" -> "adventure"
+            mood == "Macera İsteyen" && groupSize == "10+" && familyStatus == "Ailesiz" -> "travel"
+            mood == "Macera İsteyen" && groupSize == "10+" && familyStatus == "Aileyle" -> "sports"
+
             else -> "other"
         }
     }
+
 }
